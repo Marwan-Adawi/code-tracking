@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { Book, User, CartItem } from '../types';
+import type { Book, User, CartItem } from '../types';
 
 interface StoreState {
   books: Book[];
@@ -14,7 +14,7 @@ interface StoreState {
   logout: () => void;
 }
 
-const useStore = create<StoreState>((set) => ({
+const useStore = create<StoreState>()((set) => ({
   books: [
     {
       id: '1',
@@ -115,6 +115,10 @@ const useStore = create<StoreState>((set) => ({
 
   register: async (name: string, email: string, password: string) => {
     await new Promise((resolve) => setTimeout(resolve, 1000));
+    
+    if (!email.includes('@') || password.length < 6) {
+      throw new Error('Invalid email or password');
+    }
     
     set({
       user: {

@@ -9,6 +9,8 @@ export interface Book {
   coverUrl: string;
   rating: number;
   stock: number;
+  publisher?: string;
+  publishDate?: string;
 }
 
 export interface User {
@@ -30,7 +32,7 @@ export interface Order {
   userId: string;
   items: CartItem[];
   totalAmount: number;
-  status: 'pending' | 'completed' | 'cancelled';
+  status: 'pending' | 'processing' | 'shipped' | 'delivered' | 'cancelled';
   createdAt: Date;
 }
 
@@ -47,7 +49,7 @@ export interface Payment {
   id: string;
   orderId: string;
   amount: number;
-  status: 'pending' | 'completed' | 'failed';
+  status: 'pending' | 'completed' | 'failed' | 'refunded';
   method: 'credit_card' | 'paypal' | 'other';
   createdAt: Date;
 } 

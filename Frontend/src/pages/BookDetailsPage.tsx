@@ -1,4 +1,3 @@
-import React from 'react';
 import { useParams } from 'react-router-dom';
 import { Star, ShoppingCart } from 'lucide-react';
 import useStore from '../store/useStore';
