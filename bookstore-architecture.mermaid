@@ -1,0 +1,39 @@
+flowchart TB
+    subgraph "Frontend Layer"
+        UI[User Interface]
+        AdminPanel[Admin Management Panel]
+    end
+
+    subgraph "Backend Layer"
+        API[RESTful API Server]
+        AuthService[Authentication Service]
+        BookService[Book Management Service]
+        OrderService[Order Processing Service]
+        PaymentService[Payment Integration Service]
+    end
+
+    subgraph "Data Layer"
+        Database[(PostgreSQL Database)]
+        Cache[(Redis Cache)]
+    end
+
+    subgraph "External Services"
+        PaymentGateway[Payment Gateway]
+        EmailService[Email Notification Service]
+    end
+
+    UI --> API
+    AdminPanel --> API
+    API --> AuthService
+    API --> BookService
+    API --> OrderService
+    API --> PaymentService
+    
+    BookService --> Database
+    OrderService --> Database
+    AuthService --> Database
+    
+    PaymentService --> PaymentGateway
+    API --> Cache
+    
+    OrderService --> EmailService

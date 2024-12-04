@@ -1,0 +1,93 @@
+classDiagram
+    class User {
+        +int id
+        +string username
+        +string email
+        +string password
+        +string role
+        +Date registeredAt
+        +authenticate()
+        +updateProfile()
+    }
+
+    class Book {
+        +int id
+        +string title
+        +string isbn
+        +string author
+        +string genre
+        +decimal price
+        +int stockQuantity
+        +string publisher
+        +Date publishDate
+        +addToInventory()
+        +updateDetails()
+        +checkAvailability()
+    }
+
+    class Order {
+        +int id
+        +int userId
+        +Date orderDate
+        +string status
+        +decimal totalAmount
+        +List~OrderItem~ items
+        +calculateTotal()
+        +updateStatus()
+        +generateInvoice()
+    }
+
+    class OrderItem {
+        +int id
+        +int bookId
+        +int quantity
+        +decimal unitPrice
+        +decimal subtotal
+    }
+
+    class Review {
+        +int id
+        +int userId
+        +int bookId
+        +int rating
+        +string comment
+        +Date reviewDate
+    }
+
+    class Cart {
+        +int id
+        +int userId
+        +List~CartItem~ items
+        +addItem()
+        +removeItem()
+        +clearCart()
+        +calculateTotal()
+    }
+
+    class CartItem {
+        +int id
+        +int bookId
+        +int quantity
+        +decimal unitPrice
+    }
+
+    class Payment {
+        +int id
+        +int orderId
+        +string paymentMethod
+        +decimal amount
+        +string status
+        +Date paymentDate
+        +processPayment()
+        +refund()
+    }
+
+    User "1" -- "0..*" Order : places
+    User "1" -- "0..*" Review : writes
+    User "1" -- "1" Cart : has
+    Book "1" -- "0..*" OrderItem : in
+    Book "1" -- "0..*" Review : receives
+    Order "1" -- "1..*" OrderItem : contains
+    Order "1" -- "1" Payment : has
+    Cart "1" -- "0..*" CartItem : contains
+    CartItem "1" -- "1" Book : references
